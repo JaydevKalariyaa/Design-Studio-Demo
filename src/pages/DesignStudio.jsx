@@ -14,15 +14,12 @@ import Heading from "../assets/sidebarImages/heading.svg"
 import List from "../assets/sidebarImages/list.svg" 
 import Checkbox from "../assets/sidebarImages/checkbox.svg" 
 import Container from "../assets/sidebarImages/container.svg"
-// Inline SVG for tabs widget
-const TabsSVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="2" y="4" width="20" height="16" rx="1" stroke="#0082cc" stroke-width="1.5" fill="none"/>
-  <rect x="2" y="4" width="7" height="4" rx="1" stroke="#0082cc" stroke-width="1.5" fill="#E6F3FA"/>
-  <rect x="9" y="4" width="7" height="4" rx="1" stroke="#0082cc" stroke-width="1.5" fill="none"/>
-  <rect x="16" y="4" width="6" height="4" rx="1" stroke="#0082cc" stroke-width="1.5" fill="none"/>
-  <rect x="3" y="10" width="18" height="8" rx="1" stroke="#0082cc" stroke-width="1.5" stroke-dasharray="2 1" fill="none"/>
-</svg>`;
-import "../styles/main.scss";
+import Tabs from "../assets/sidebarImages/tabs.svg"
+import View from "../assets/sidebarImages/view.svg"
+import FullScreen from "../assets/sidebarImages/fullscreen.svg"
+import Undo from "../assets/sidebarImages/undo.svg"
+import Redo from "../assets/sidebarImages/redo.svg"
+
 const DesignStudio = () => {
   const editorRef = useRef(null);
   const [layoutExpanded, setLayoutExpanded] = useState(true);
@@ -119,7 +116,7 @@ const DesignStudio = () => {
 `,
         category: "Layout Elements",
         content: `
-                  <div style="border: 1px dashed #0082cc; padding: 3px; margin: 5px auto; min-height: 600px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; width: 90%;"
+                  <div style="border: 1px solid #0082cc; padding: 3px; margin: 5px auto; min-height: 600px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; width: 90%;"
                        data-gjs-droppable="true">
                    
                   </div>
@@ -133,8 +130,8 @@ const DesignStudio = () => {
         label: `<img src=${OneByTwo} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">1/2</p></div>`,
         category: "Layout Elements",
         content: `<div style="display: flex; gap: 10px; padding: 5px; width: 100%;" data-gjs-droppable="false" data-gjs-custom-name="Two Columns Layout" class="gjs-two-column-layout">
-                  <div style="flex: 1; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 1"></div>
-                  <div style="flex: 1; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 2"></div>
+                  <div style="flex: 1; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 1"></div>
+                  <div style="flex: 1; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 2"></div>
                 </div>`,
         attributes: { class: "gjs-block-grid" }
       });
@@ -143,9 +140,9 @@ const DesignStudio = () => {
         label: `<img src=${OneByThree}  className="left-sidebar-image" width="100%"/> <br/> <p style="margin-top:4px">1/3</p></div`,
         category: "Layout Elements",
         content: `<div style="display: flex; gap: 10px; padding: 5px; width: 100%;" data-gjs-droppable="false" data-gjs-custom-name="Three Columns Layout" class="gjs-three-column-layout">
-                  <div style="flex: 1; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 1"></div>
-                  <div style="flex: 1; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 2"></div>
-                    <div style="flex: 1; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 3"></div>
+                  <div style="flex: 1; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 1"></div>
+                  <div style="flex: 1; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 2"></div>
+                    <div style="flex: 1; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 3"></div>
                 </div>`,
         attributes: { class: "gjs-block-grid" }
       });
@@ -154,8 +151,8 @@ const DesignStudio = () => {
         label: `<img src=${ThreeByFour} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">3/4</p></div>`,
         category: "Layout Elements",
         content: `<div style="display: flex; gap: 10px; padding: 5px; width: 100%;" data-gjs-droppable="false" data-gjs-custom-name="Three Columns Layout" class="gjs-three-column-layout">
-                  <div style="flex: 3; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 1"></div>
-                  <div style="flex: 1; min-height: 70px; border: 1px dashed #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 2"></div>
+                  <div style="flex: 3; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 1"></div>
+                  <div style="flex: 1; min-height: 70px; border: 1px solid #0082cc;"  data-gjs-droppable="true" data-gjs-custom-name="Column 2"></div>
                   
                 </div>`,
         attributes: { class: "gjs-block-grid" }
@@ -225,9 +222,97 @@ const DesignStudio = () => {
         `,
         attributes: { class: "gjs-block-button" }
       });
+      const editor = editorRef.current;
+    
+    
+  
+      
+      editor.Components.addType("tabs-widget", {
+        model: {
+          defaults: {
+            tagName: "div",
+            attributes: { class: "tabs-widget" },
+            droppable: false,
+            components: `
+              <div class="tabs-widget" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+                <div class="tabs-header" style="display: flex; background: #f8f9fa; padding: 10px; border-bottom: 1px solid #ddd; border-radius: 8px 8px 0 0;">
+                  <div class="tab-button active" data-tab="1">Tab 1</div>
+                  <div class="tab-button" data-tab="2">Tab 2</div>
+                  <div class="tab-button" data-tab="3">Tab 3</div>
+                </div>
+                <div class="tabs-content">
+                  <div class="tab-content tab-content-1 active" data-gjs-droppable="true">
+                    <p>Content for Tab 1. Drag elements here.</p>
+                  </div>
+                  <div class="tab-content tab-content-2" data-gjs-droppable="true" style="display: none;">
+                    <p>Content for Tab 2. Drag elements here.</p>
+                  </div>
+                  <div class="tab-content tab-content-3" data-gjs-droppable="true" style="display: none;">
+                    <p>Content for Tab 3. Drag elements here.</p>
+                  </div>
+                </div>
+              </div>
+            `,
+            styles: `
+              .tab-button {
+                padding: 10px 15px;
+                cursor: pointer;
+                border-radius: 6px;
+                margin-right: 8px;
+                transition: all 0.3s ease-in-out;
+                font-weight: bold;
+                background: transparent;
+              }
+              .tab-button.active {
+                background: #007bff;
+                color: white;
+              }
+              .tab-button:hover {
+                background: rgba(0, 123, 255, 0.2);
+              }
+              .tab-content {
+                padding: 20px;
+                animation: fadeIn 0.3s ease-in-out;
+              }
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(5px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+            `,
+            script: function () {
+              const widget = this;
+              const buttons = widget.querySelectorAll(".tab-button");
+              const tabContents = widget.querySelectorAll(".tab-content");
+
+              buttons.forEach((button) => {
+                button.addEventListener("click", function () {
+                  const tabNum = this.getAttribute("data-tab");
+
+                  // Remove 'active' class from buttons and add to clicked one
+                  buttons.forEach((btn) => btn.classList.remove("active"));
+                  this.classList.add("active");
+
+                  // Hide all tab contents and show only the selected one
+                  tabContents.forEach((content) => (content.style.display = "none"));
+                  widget.querySelector(`.tab-content-${tabNum}`).style.display = "block";
+                });
+              });
+            },
+          },
+        },
+      });
+
+      // Add Tabs block
+      blockManager.add("tabs", {
+        label: `<img src=${Tabs} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">Tabs</p></div>`,
+        category: "Widgets",
+        content: { type: "tabs-widget" },
+        attributes: { class: "gjs-block-tabs" },
+      }); 
+      
       
       // Make canvas droppable
-      const editor = editorRef.current;
+    
      
       // Make sure the canvas handles drops properly
       editor.on('component:selected', component => {
@@ -262,6 +347,48 @@ const DesignStudio = () => {
     setLayoutExpanded(!layoutExpanded);
   };
 
+
+  const openCodeModal = () => {
+    if (!editorRef.current) return;
+  
+    const editor = editorRef.current;
+    const modal = editor.Modal;
+    const codeViewer = editor.CodeManager.getViewer("CodeMirror").clone();
+  
+    // Create the container for the code viewer
+    let container = document.createElement("div");
+    container.style.padding = "20px";
+    container.style.background = "#f8f9fa";
+    container.style.borderRadius = "8px";
+    container.style.height = "400px";
+    container.style.overflow = "auto";
+  
+    // Get the generated HTML & CSS
+    const html = editor.getHtml();
+    const css = editor.getCss();
+  
+    // Ensure previous modal content is cleared
+    modal.setContent("");
+    modal.setTitle("Generated Code");
+  
+    // Open the modal FIRST to ensure proper rendering
+    modal.open();
+  
+    // Append container to modal first
+    modal.getContentEl().appendChild(container);
+  
+    // Initialize CodeMirror after ensuring the container exists
+    setTimeout(() => {
+      console.log(codeViewer)
+      // if (!codeViewer.editor) {
+      //   codeViewer.set({ readOnly: 0, lineNumbers: true });
+      //   codeViewer.init(container);
+      // }
+      codeViewer.setContent(`<!-- HTML -->\n${html}\n\n/* CSS */\n${css}`);
+    }, 100); // Small delay ensures CodeMirror gets initialized correctly
+  };
+  
+  
   const toggleWidgets = () => {
     setWidgetsExpanded(!widgetsExpanded);
   };
@@ -333,14 +460,14 @@ const DesignStudio = () => {
       {/* Header */}
       <div style={{ 
           height: "60px", 
-          background: "#fafafa", 
+          background: " #0082CC", 
           display: "flex", 
           alignItems: "center", 
           justifyContent: "space-between", 
           padding: "0 20px", 
           borderBottom: "1px solid #dee2e6" 
         }}>
-          <h3 style={{ margin: 0, fontSize: "20px", color: "#0088ff" }}>Design Studio</h3>
+          <h3 style={{ margin: 0, fontSize: "20px", color: "white", }}>Design Studio</h3>
           <div style={{ display: "flex", gap: "15px" }}>
             <button 
               onClick={togglePreview}
@@ -352,7 +479,8 @@ const DesignStudio = () => {
               }}
               title="Toggle Preview Mode"
             >
-              <span>👁️</span>
+           <img src={View} height="20px" width="20px"/>
+
             </button>
             <button 
               onClick={toggleFullscreen}
@@ -364,7 +492,7 @@ const DesignStudio = () => {
               }}
               title="Toggle Fullscreen"
             >
-              <span>⬚</span>
+               <img src={FullScreen} height="18px" width="18px"/ >
             </button>
             <button 
               onClick={undoAction}
@@ -376,7 +504,7 @@ const DesignStudio = () => {
               }}
               title="Undo"
             >
-              <span>↩️</span>
+              <img src={Undo} height="18px" width="18px"/>
             </button>
             <button 
               onClick={redoAction}
@@ -388,10 +516,10 @@ const DesignStudio = () => {
               }}
               title="Redo"
             >
-              <span>↪️</span>
+             <img src={Redo} height="18px" width="18px"/>
             </button>
-            <button 
-              onClick={getHtmlContentWithStyles}
+            {/* <button 
+              onClick={openCodeModal}
               style={{ 
                 background: "transparent", 
                 border: "none", 
@@ -401,7 +529,7 @@ const DesignStudio = () => {
               title="Get HTML with Styles"
             >
               <span>🔗</span>
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -435,7 +563,7 @@ const DesignStudio = () => {
         {/* Editor */}
         <div style={{width:"100%",backgroundColor:"white"}}>
         
-      <div id="gjs" style={{ flexGrow: 1, height: "calc(100vh - 50px)",backgroundColor:"#fafafa", padding: 1, margin: 0, overflowY: "auto" }}></div>
+      <div id="gjs" style={{ flexGrow: 1, height: "calc(100vh - 30px) !important", padding: "4px 20px", margin: 0, overflowY: "auto" }}></div>
         </div>
        
 
