@@ -1,0 +1,199 @@
+// /* Style Manager Theme */
+// #style-manager-container {
+//   background-color: #222;
+//   color: #fff;
+// }
+
+// /* Style Manager Sectors */
+// .gjs-sm-sector {
+//   margin-bottom: 10px;
+// }
+
+// .gjs-sm-sector-title {
+//   display: none; /* Hide the title as we already have headers */
+// }
+
+// /* Style Manager Properties */
+// .gjs-sm-property {
+//   padding: 5px 0;
+//   margin-bottom: 5px;
+//   border-bottom: 1px solid #333;
+// }
+
+// .gjs-sm-label {
+//   color: #ddd;
+//   font-size: 12px;
+// }
+
+// /* Style Manager Fields */
+// .gjs-sm-field {
+//   background-color: #333;
+//   border-radius: 3px;
+//   border: 1px solid #444;
+//   color: #fff;
+// }
+
+// .gjs-field-units {
+//   background-color: #444;
+//   color: #fff;
+// }
+
+// .gjs-field-arrow {
+//   border-color: #ddd;
+// }
+
+// .gjs-sm-clear {
+//   color: #ddd;
+// }
+
+// /* Color picker */
+// .gjs-field-color-picker {
+//   background-color: #333;
+//   border: 1px solid #444;
+// }
+
+// /* Inputs and selects */
+// .gjs-field input,
+// .gjs-field select,
+// .gjs-field option {
+//   background-color: #333;
+//   color: #fff;
+//   border: none;
+// }
+
+// /* Sliders */
+// .gjs-field-slider {
+//   background-color: #444;
+// }
+
+// .gjs-field-slider-handler {
+//   background-color: #0088ff;
+// }
+
+// /* Radio and checkbox fields */
+// .gjs-radio-item-label {
+//   color: #ddd;
+// }
+
+// .gjs-color-warn {
+//   color: #ff9966;
+// }
+
+// .gjs-four-color,
+// .gjs-color-main {
+//   color: #0088ff;
+// }
+
+// /* Block styling for blocks in the left panel */
+// #blocks .gjs-block {
+//   background: #333;
+//   border: 1px solid #444;
+//   border-radius: 3px;
+//   transition: all 0.2s;
+// }
+
+// #blocks .gjs-block:hover {
+//   background: #444;
+//   transform: translateY(-2px);
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+// }
+
+// #blocks .gjs-block-label {
+//   color: #fff;
+// }
+
+// /* Buttons */
+// .gjs-btn-prim {
+//   background-color: #0088ff;
+//   color: white;
+// }
+
+// .gjs-btn-prim:hover {
+//   background-color: #0077ee;
+// }
+
+// /* Field arrows */
+// .gjs-field-arrow-u,
+// .gjs-field-arrow-d {
+//   border-color: transparent transparent #ddd transparent;
+// }
+
+// .gjs-field-arrow-d {
+//   border-color: #ddd transparent transparent transparent;
+// }
+
+// /* Make the style editor responsive to dark theme */
+// .gjs-sm-properties {
+//   padding: 5px 0;
+// }
+
+// .gjs-sm-sector-caret {
+//   color: #ddd;
+// }
+
+// /* Override GrapeJS defaults */
+// .gjs-selected {
+//   outline: 2px solid #0088ff !important;
+// }
+
+// .gjs-hovered {
+//   outline: 1px dashed #0088ff !important;
+// }
+
+// .gjs-toolbar {
+//   background-color: #0088ff !important;
+// }
+
+
+/* Design Studio Styles */
+
+/* Variables */
+:root {
+  --primary-color: #0088ff;
+  --primary-hover-color: #0077ee;
+  --dark-bg: #1a1a1a;
+  --darker-bg: #121212;
+  --sidebar-bg: #222222;
+  --text-color: #ffffff;
+  --text-muted: #aaaaaa;
+  --border-color: #333333;
+  --block-bg: #2a2a2a;
+  --block-hover-bg: #3a3a3a;
+  --header-height: 60px;
+  --sidebar-width: 280px;
+  --gjs-main-color: #FF5733;
+
+ 
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background-color: var(--dark-bg);
+  line-height: 1.6;
+}
+
+.gjs-cv-canvas{
+  width:100% !important
+}
+
+
+.gjs-two-color{
+  background-color: #fafafa !important;
+  color:black !important;
+}
+.gjs-one-bg{
+  background-color: #fafafa !important;
+}
+
+
+.gjs-category-title, .gjs-layer-title, .gjs-block-category .gjs-title, .gjs-sm-sector-title, .gjs-trait-category .gjs-title{
+  background-color: #fafafa !important;
+}
