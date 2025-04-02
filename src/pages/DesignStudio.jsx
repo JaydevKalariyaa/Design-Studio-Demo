@@ -7,9 +7,9 @@ import ThreeByFour from "../assets/sidebarImages/three-by-four.svg"
 
 
 import OneByThree from "../assets/sidebarImages/one-by-three.svg"   
-
+import { Button, IconButton, Box } from "@mui/material";
 import Image from "../assets/sidebarImages/image.svg" 
-import Button from "../assets/sidebarImages/button.svg" 
+import ButtonImg from "../assets/sidebarImages/button.svg" 
 import Heading from "../assets/sidebarImages/heading.svg" 
 import List from "../assets/sidebarImages/list.svg" 
 import Checkbox from "../assets/sidebarImages/checkbox.svg" 
@@ -19,20 +19,162 @@ import View from "../assets/sidebarImages/view.svg"
 import FullScreen from "../assets/sidebarImages/fullscreen.svg"
 import Undo from "../assets/sidebarImages/undo.svg"
 import Redo from "../assets/sidebarImages/redo.svg"
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import DynamicTable from "../components/DymaicTable";
 
 const DesignStudio = () => {
   const editorRef = useRef(null);
-  const [layoutExpanded, setLayoutExpanded] = useState(true);
-  const [widgetsExpanded, setWidgetsExpanded] = useState(true);
+ 
   const [previewMode, setPreviewMode] = useState(false);
-  const [stylesExpanded, setStylesExpanded] = useState({
-    size: false,
-    space: false,
-    position: false,
-    typography: false,
-    backgrounds: false,
-    border: false
-  });
+  const [pages, setPages] = useState([{ id: "1",component:`<div>Page 1 Content</div>` }]);
+  const [selectedPage, setSelectedPage] = useState("1");
+  const [templates, setTemplates] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  
+  // Function to Save Template
+  const saveTemplate = () => {
+    const editor = editorRef.current;
+    if (editor) {
+      const templateData = {
+        id: `template-${templates.length + 1}`,
+        name: `Template ${templates.length + 1}`,
+        pages: editor.Pages.getAll().map(page => ({
+          id: page.id,
+          html: page.getMainComponent().toHTML(),
+          css: editor.getCss(),
+        })),
+      };
+  
+      // Store in localStorage
+      const storedTemplates = JSON.parse(localStorage.getItem("savedTemplates")) || [];
+      const updatedTemplates = [...storedTemplates, templateData];
+      localStorage.setItem("savedTemplates", JSON.stringify(updatedTemplates));
+  
+      setTemplates(updatedTemplates);
+      alert("Template saved successfully!");
+    }
+  };
+  
+  // Function to Load Template
+  const loadTemplate = (templateId) => {
+    const editor = editorRef.current;
+    if (editor) {
+      const storedTemplates = JSON.parse(localStorage.getItem("savedTemplates")) || [];
+      const selected = storedTemplates.find((t) => t.id === templateId);
+  
+      if (selected) {
+        // Remove existing pages
+        editor.Pages.getAll().forEach((page) => editor.Pages.remove(page.id));
+  
+        // Load pages from template
+        selected.pages.forEach((pageData) => {
+          console.log(pageData)
+          const newPage = editor.Pages.add({ id: pageData.id });
+  
+          // Make sure components are correctly added
+          newPage.getMainComponent().components(pageData.html);
+  
+          // Apply CSS styles if available
+          if (pageData.css) {
+            editor.setStyle(pageData.css);
+          }
+        });
+  
+        // Ensure first page is selected
+        if (selected.pages.length > 0) {
+          editor.Pages.select(selected.pages[0].id);
+        }
+  
+        // Refresh UI
+        editor.Pages.render();
+  
+        // Update state
+        setSelectedTemplate(templateId);
+        setPages(editor.Pages.getAll());
+        setSelectedPage(editor.Pages.getSelected().id)
+      }
+    }
+  };
+  
+  
+  // Load Templates on Component Mount
+  useEffect(() => {
+    const storedTemplates = JSON.parse(localStorage.getItem("savedTemplates")) || [];
+    setTemplates(storedTemplates);
+  }, []);
+
+  const updatePagesList = () => {
+    const editor = editorRef.current;
+    if (editor) {
+      const allPages = editor.Pages.getAll();
+      setPages(allPages);
+  
+      // Ensure the selected page is always valid
+      const selected = editor.Pages.getSelected();
+      setSelectedPage(selected ? selected.id : allPages[0]?.id);
+    }
+  };
+  
+  // Function to add a new page
+  const addPage = () => {
+    const editor = editorRef.current;
+    if (editor) {
+      const newPageId = `${pages.length + 1}`;
+      const newPage = editor.Pages.add({
+        id: newPageId,
+        component: `<div>Page ${newPageId} Content</div>`,
+      });
+  
+      editor.Pages.select(newPage);
+      updatePagesList();
+    }
+  };
+  
+  // Function to delete a page & reindex remaining pages
+  const deletePage = (pageId) => {
+    const editor = editorRef.current;
+    if (editor) {
+      if (pages.length === 1) {
+        alert("You cannot delete the last page!");
+        return;
+      }
+  
+      editor.Pages.remove(pageId);
+  
+      // After deletion, get the updated list of pages
+      let updatedPages = editor.Pages.getAll();
+  
+      // If no pages exist, create a new default page
+      if (updatedPages.length === 0) {
+        const defaultPage = editor.Pages.add({
+          id: "1",
+          component: `<div>New Default Page</div>`,
+        });
+        editor.Pages.select(defaultPage);
+        updatedPages = [defaultPage];
+      }
+  
+      // Re-index page names
+      updatedPages.forEach((page, index) => {
+        page.set("id", `${index + 1}`);
+      });
+  
+      updatePagesList();
+    }
+  };
+  
+  // Function to switch pages
+  const switchPage = (pageId) => {
+    const editor = editorRef.current;
+    if (editor) {
+      editor.Pages.select(pageId);
+      setSelectedPage(pageId);
+    }
+  };
+  
+  
 
   useEffect(() => {
     if (!editorRef.current) {
@@ -42,12 +184,32 @@ const DesignStudio = () => {
         fromElement: true,
         width: "auto",
         height: "calc(100vh - 100px)",
-        storageManager: false,
+      
         plugins: ["gjs-preset-webpage"],
+       
         blockManager: {
           appendTo: "#blocks",
         },
         panels: { defaults: [] },
+        // storageManager: {
+        //   type: "local",  // Saves to browser LocalStorage
+        //   autosave: true,
+        //   stepsBeforeSave: 1, // Save on every change
+        // },
+        storageManager: false,
+
+        pageManager: {
+          pages: [
+            {
+              // without an explicit ID, a random one will be created
+              id: '1',
+              // CSS or a JSON of styles
+             
+              // HTML string or a JSON of components
+              component: '<div class="my-el">Hello world!</div>',
+            },
+          ],
+        },
         styleManager: {
           appendTo: '#style-manager-container',
           sectors: [
@@ -89,6 +251,8 @@ const DesignStudio = () => {
         //   ]
         // },
         dragMode: 'translate',
+
+      
        
         dropzone: true,
 
@@ -106,6 +270,7 @@ const DesignStudio = () => {
           ]
         },
       });
+
 
       // Get block manager
       const blockManager = editorRef.current.BlockManager;
@@ -177,17 +342,33 @@ const DesignStudio = () => {
       blockManager.add("checkbox", {
         label: `<img src=${Checkbox} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">CheckBox</p></div>`,
         category: "Widgets",
-        content: `
-          <div style="padding: 10px;">
-            <label style="display: flex; align-items: center; margin-bottom: 5px;">
-              <input type="checkbox" style="margin-right: 10px;" />
-              <span>Item - 1</span>
-            </label>
-          
-          </div>
-        `,
-        attributes: { class: "gjs-block-text" }
+        content: {
+          tagName: "label",
+          components: `
+            <input type="checkbox" class="custom-checkbox" style="margin-right: 5px;" />
+            <span>Checkbox</span>
+          `,
+          attributes: { class: "gjs-block-checkbox" },
+          script: function () {
+            const checkbox = this.querySelector(".custom-checkbox");
+      
+            // Load saved state (if any)
+            const savedState = localStorage.getItem("checkbox-state");
+            if (savedState === "checked") checkbox.checked = true;
+      
+            checkbox.addEventListener("change", () => {
+              // Save state when checkbox is toggled
+              localStorage.setItem("checkbox-state", checkbox.checked ? "checked" : "unchecked");
+            });
+      
+            checkbox.addEventListener("mousedown", (e) => e.stopPropagation()); // Allow clicking
+            checkbox.addEventListener("click", (e) => e.stopPropagation());
+          },
+        },
       });
+      
+      
+      
       
       // List
       blockManager.add("list", {
@@ -215,7 +396,7 @@ const DesignStudio = () => {
       
       // Button
       blockManager.add("button", {
-        label: `<img src=${Button} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">Button</p></div>`,
+        label: `<img src=${ButtonImg} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">Button</p></div>`,
         category: "Widgets",
         content: `
           <button style="padding: 10px 15px; background: #fff; border: 1px solid #0082cc; text-transform: uppercase;">BUTTON</button>
@@ -309,6 +490,128 @@ const DesignStudio = () => {
         content: { type: "tabs-widget" },
         attributes: { class: "gjs-block-tabs" },
       }); 
+
+
+  
+
+    
+  
+      
+      // Register the Table Component
+      editor.DomComponents.addType("dynamic-table", {
+        model: {
+          defaults: {
+            tagName: "div",
+            draggable: true,
+            components: `
+              <div class="table-container" style="padding: 10px; text-align: center;">
+                <div style="margin-bottom: 10px;">
+                  <button class="add-col" style="margin-right: 5px; padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">➕ Add Column</button>
+                  <button class="add-row" style="padding: 5px 10px; background-color: #2196F3; color: white; border: none; cursor: pointer;">➕ Add Row</button>
+                
+                </div>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                  <thead>
+                    <tr>
+                      <th style="padding: 5px; background-color: #f4f4f4;">
+                        <input type="text" value="Column 1" class="col-name" style="border: none; background: transparent; text-align: center; width: 80%;" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding: 5px;">
+                        <input type="text" value="Cell 1" class="cell" style="width: 100%; padding: 5px;" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            script: function () {
+              const container = this;
+              const table = container.querySelector("table");
+              const addColBtn = container.querySelector(".add-col");
+              const addRowBtn = container.querySelector(".add-row");
+              const exportBtn = container.querySelector(".export-table");
+      
+              function updateEditorModel() {
+                setTimeout(() => {
+                  const html = container.innerHTML;
+                  container.closest("[data-gjs-type='dynamic-table']").set("content", html);
+                }, 100);
+              }
+      
+              function addColumn(event) {
+                event.preventDefault();
+                const thead = table.querySelector("thead tr");
+                const tbody = table.querySelectorAll("tbody tr");
+      
+                const colIndex = thead.children.length;
+                const th = document.createElement("th");
+                th.style.padding = "5px";
+                th.style.backgroundColor = "#f4f4f4";
+                th.innerHTML = `
+                  <input type="text" value="Column ${colIndex + 1}" class="col-name" style="border: none; background: transparent; text-align: center; width: 80%;" />
+                `;
+      
+                thead.appendChild(th);
+      
+                tbody.forEach(row => {
+                  const td = document.createElement("td");
+                  td.innerHTML = '<input type="text" class="cell" style="width: 100%; padding: 5px;" />';
+                  row.appendChild(td);
+                });
+      
+                updateEditorModel();
+              }
+      
+              function addRow(event) {
+                event.preventDefault();
+                const tbody = table.querySelector("tbody");
+                const cols = table.querySelector("thead tr").children.length;
+                const row = document.createElement("tr");
+      
+                for (let i = 0; i < cols; i++) {
+                  const td = document.createElement("td");
+                  td.innerHTML = '<input type="text" class="cell" style="width: 100%; padding: 5px;" />';
+                  row.appendChild(td);
+                }
+      
+                tbody.appendChild(row);
+                updateEditorModel();
+              }
+      
+              function exportTable(event) {
+                event.preventDefault();
+                const editor = editorRef.current;
+                const exportedHtml = editor.getHtml();
+                const exportedCss = editor.getCss();
+                console.log("Exported HTML:", exportedHtml);
+                console.log("Exported CSS:", exportedCss);
+      
+                alert("Check Console for Exported Code!");
+              }
+      
+              addColBtn.addEventListener("click", addColumn);
+              addRowBtn.addEventListener("click", addRow);
+              exportBtn.addEventListener("click", exportTable);
+            },
+          },
+        },
+      });
+      
+      // Add the block to BlockManager
+      editor.BlockManager.add("dynamic-table", {
+        label: "Dynamic Table",
+        category: "Basic",
+        content: { type: "dynamic-table" },
+      });
+      
+      
+      
+
+      
       
       
       // Make canvas droppable
@@ -319,10 +622,9 @@ const DesignStudio = () => {
         const selectedComponent = component;
         if (selectedComponent) {
           // Ensure columns are droppable
-          if (selectedComponent.get('type') === 'default' || 
-              selectedComponent.getAttributes()['data-gjs-droppable'] === 'true') {
+         
             selectedComponent.set('droppable', true);
-          }
+        
         }
       });
 
@@ -343,63 +645,20 @@ const DesignStudio = () => {
     }
   }, []);
 
-  const toggleLayout = () => {
-    setLayoutExpanded(!layoutExpanded);
-  };
+
 
 
   const openCodeModal = () => {
-    if (!editorRef.current) return;
-  
-    const editor = editorRef.current;
-    const modal = editor.Modal;
-    const codeViewer = editor.CodeManager.getViewer("CodeMirror").clone();
-  
-    // Create the container for the code viewer
-    let container = document.createElement("div");
-    container.style.padding = "20px";
-    container.style.background = "#f8f9fa";
-    container.style.borderRadius = "8px";
-    container.style.height = "400px";
-    container.style.overflow = "auto";
-  
-    // Get the generated HTML & CSS
-    const html = editor.getHtml();
-    const css = editor.getCss();
-  
-    // Ensure previous modal content is cleared
-    modal.setContent("");
-    modal.setTitle("Generated Code");
-  
-    // Open the modal FIRST to ensure proper rendering
-    modal.open();
-  
-    // Append container to modal first
-    modal.getContentEl().appendChild(container);
-  
-    // Initialize CodeMirror after ensuring the container exists
-    setTimeout(() => {
-      console.log(codeViewer)
-      // if (!codeViewer.editor) {
-      //   codeViewer.set({ readOnly: 0, lineNumbers: true });
-      //   codeViewer.init(container);
-      // }
-      codeViewer.setContent(`<!-- HTML -->\n${html}\n\n/* CSS */\n${css}`);
-    }, 100); // Small delay ensures CodeMirror gets initialized correctly
+    if (editorRef.current) {
+      editorRef.current.Commands.run('core:open-code');
+      setPreviewMode(!previewMode);
+    }
   };
   
   
-  const toggleWidgets = () => {
-    setWidgetsExpanded(!widgetsExpanded);
-  };
+ 
 
-  // Simple toggle function for style sections
-  const toggleStyle = (section) => {
-    setStylesExpanded(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
+
 
   // GrapesJS functionality handlers
   const togglePreview = () => {
@@ -427,33 +686,10 @@ const DesignStudio = () => {
     }
   };
 
-  const getHtmlContentWithStyles = () => {
-    if (editorRef.current) {
-      // Get the HTML content from the editor
-      const htmlContent = editorRef.current.getHtml();
-      
-      // Get the CSS styles from the editor
-      const cssContent = editorRef.current.getCss();
 
-      // Combine both HTML and CSS into a full HTML document
-      const fullHtmlContent = `
-        <html>
-          <head>
-            <style>
-              ${cssContent}
-            </style>
-          </head>
-          <body>
-            ${htmlContent}
-          </body>
-        </html>
-      `;
 
-      console.log(fullHtmlContent); // Logs the final HTML with styles
-      alert(fullHtmlContent); // You can display the content or save it as needed
-    }
-  };
-
+  
+  
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", margin: 0, padding: 0, overflow: "hidden" }}>
@@ -475,7 +711,8 @@ const DesignStudio = () => {
                 background: "transparent", 
                 border: "none", 
                 color: previewMode ? "#0088ff" : "#6c757d", 
-                fontSize: "16px"
+                fontSize: "16px",
+                cursor: "pointer",
               }}
               title="Toggle Preview Mode"
             >
@@ -488,7 +725,8 @@ const DesignStudio = () => {
                 background: "transparent", 
                 border: "none", 
                 color: "#6c757d", 
-                fontSize: "16px"
+                fontSize: "16px",
+                cursor: "pointer"
               }}
               title="Toggle Fullscreen"
             >
@@ -500,7 +738,8 @@ const DesignStudio = () => {
                 background: "transparent", 
                 border: "none", 
                 color: "#6c757d", 
-                fontSize: "16px"
+                fontSize: "16px",
+                cursor: "pointer"
               }}
               title="Undo"
             >
@@ -512,24 +751,30 @@ const DesignStudio = () => {
                 background: "transparent", 
                 border: "none", 
                 color: "#6c757d", 
-                fontSize: "16px"
+                fontSize: "16px",
+                cursor: "pointer"
               }}
               title="Redo"
             >
              <img src={Redo} height="18px" width="18px"/>
             </button>
-            {/* <button 
+            <button 
               onClick={openCodeModal}
               style={{ 
-                background: "transparent", 
+                background: "white", 
+                borderRadius: "4px", 
+                padding: "5px 10px", 
                 border: "none", 
-                color: "#6c757d", 
-                fontSize: "16px"
+                color: "black", 
+                fontSize: "14px",
+                 cursor: "pointer"
               }}
               title="Get HTML with Styles"
             >
-              <span>🔗</span>
-            </button> */}
+             Publish
+            </button>
+
+           
           </div>
         </div>
 
@@ -550,7 +795,7 @@ const DesignStudio = () => {
           <div id="blocks" >
            
             {/* GrapeJS blocks will be displayed here when layout is expanded */}
-            <div style={{ display: layoutExpanded ? 'block' : 'none'  }}></div>
+            <div style={{ display:  'block'  }}></div>
           </div>
           
         
@@ -561,10 +806,98 @@ const DesignStudio = () => {
         </div>
 
         {/* Editor */}
-        <div style={{width:"100%",backgroundColor:"white"}}>
+        <div style={{width:"100%",backgroundColor:"white", position: "relative",}}>
         
-      <div id="gjs" style={{ flexGrow: 1, height: "calc(100vh - 30px) !important", padding: "4px 20px", margin: 0, overflowY: "auto" }}></div>
+      <div id="gjs" style={{ flexGrow: 1, height: "calc(100vh - 150px)", padding: "4px 20px", margin: 0, overflowY: "auto" }}></div>
+      <Box
+      sx={{
+        width: "100%",
+        backgroundColor: "#1e293b",
+        color: "white",
+        padding: "10px",
+        boxShadow: "0px -4px 10px rgba(0, 0, 0, 0.2)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderTop: "2px solid #374151",
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        gap: "6px",
+      }}
+    >
+      {pages.map((page) => (
+        <Box key={page.id} sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+
+          <Box  sx={{
+              backgroundColor: selectedPage === page.id ? "#0082cc" : "transparent",
+              color: "white",
+            
+              borderRadius: "6px",
+              border:"1px solid white",
+              fontWeight: "bold",
+              textTransform: "none",
+              transition: "background 0.2s ease-in-out",
+              "&:hover": {
+                backgroundColor: selectedPage === page.id ? "#005f99" : "#4b5563",
+              },
+            }}>
+        
+          <Button
+            onClick={() => switchPage(page.id)}
+            variant={selectedPage === page.id ? "contained" : "text"}
+
+            sx={{
+              boxShadow: "none",
+              color: "white",
+            }}
+          >
+            {page.id.replace("page-", "Page ")}
+          </Button>
+
+          {/* Delete Page Button */}
+          {pages.length > 1 && (
+            <IconButton
+              onClick={() => deletePage(page.id)}
+              size="small"
+              sx={{
+                color: "white",
+                "&:hover": {
+                  color: "#ff6b6b",
+                },
+              }}
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          )}
+          </Box>
+        </Box>
+      ))}
+
+      {/* ➕ Add Page Button */}
+      <Button
+        onClick={addPage}
+        variant="contained"
+        sx={{
+          backgroundColor: "#0082cc",
+          color: "white",
+          borderRadius: "6px",
+          padding: "8px",
+          minWidth: "36px",
+          "&:hover": {
+            backgroundColor: "#005f99",
+          },
+        }}
+      >
+        <AddIcon />
+      </Button>
+    </Box>
+
+   
+
+       
         </div>
+        
        
 
         {/* Right Sidebar - Style */}
@@ -580,6 +913,50 @@ const DesignStudio = () => {
           
          
             <div id="style-manager-container" style={{marginTop:"5px",background:"white" }}></div>
+
+            <div style={{ padding: "16px", background: "#1e293b", color: "white" }}>
+  <h3>📂 Saved Templates</h3>
+
+  {templates.length > 0 ? (
+    <ul style={{ listStyle: "none", padding: "0" }}>
+      {templates.map((template) => (
+        <li key={template.id} style={{ marginBottom: "8px" }}>
+          <button
+            onClick={() => loadTemplate(template.id)}
+            style={{
+              background: selectedTemplate === template.id ? "#0082cc" : "#374151",
+              color: "white",
+              border: "none",
+              padding: "8px",
+              cursor: "pointer",
+              marginRight: "6px",
+              borderRadius: "4px",
+            }}
+          >
+            {template.name}
+          </button>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No templates saved</p>
+  )}
+
+  <button
+    onClick={saveTemplate}
+    style={{
+      background: "#0082cc",
+      color: "white",
+      border: "none",
+      padding: "10px",
+      cursor: "pointer",
+      borderRadius: "6px",
+    }}
+  >
+    💾 Save Current Template
+  </button>
+</div>
+
          
           
         </div>

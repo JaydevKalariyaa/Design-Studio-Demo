@@ -10,13 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@grapesjs/react": "^2.0.0",
     "@grapesjs/studio-sdk": "^1.0.36",
+    "@mui/icons-material": "^7.0.1",
+    "@mui/material": "^7.0.1",
     "grapejs": "^2.1.2",
     "grapesjs": "^0.22.6",
     "grapesjs-preset-webpage": "^1.0.3",
     "react": "^19.1.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

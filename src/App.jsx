@@ -1,13 +1,18 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./styles/main.scss";
 import DesignStudio from "./pages/DesignStudio";
+// import Canva from "./pages/Canva";
 
 const App = () => {
   return (
-    <div className="design-studio">
-   <DesignStudio/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<DesignStudio />} />
+        {/* <Route path="/canva" element={<Canva />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 };
 
