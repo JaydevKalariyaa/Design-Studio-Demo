@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@canva/app-i18n-kit": "^1.0.2",
+    "@canva/app-ui-kit": "^4.8.0",
+    "@canva/design": "^2.4.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@grapesjs/react": "^2.0.0",
@@ -19,8 +22,10 @@
     "grapejs": "^2.1.2",
     "grapesjs": "^0.22.6",
     "grapesjs-preset-webpage": "^1.0.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.0.0",
+    "install": "^0.13.0",
+    "npm": "^11.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router-dom": "^7.4.1"
   },
   "devDependencies": {

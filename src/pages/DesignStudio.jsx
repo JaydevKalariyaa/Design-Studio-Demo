@@ -688,7 +688,9 @@ const DesignStudio = () => {
 
 
 
-  
+  const openCanvaPopup = () => {
+    window.open("https://www.canva.com/design/DAGjkyuIaEs/u0hRRwtmCimhHnrdw5K4BQ/edit", "_blank", "width=1200,height=800");
+  };
   
 
   return (
@@ -914,8 +916,8 @@ const DesignStudio = () => {
          
             <div id="style-manager-container" style={{marginTop:"5px",background:"white" }}></div>
 
-            <div style={{ padding: "16px", background: "#1e293b", color: "white" }}>
-  <h3>📂 Saved Templates</h3>
+            <div style={{ padding: "16px", background: "#1e293b", color: "white",marginTop:"20px" }}>
+  <h4 style={{ marginBottom:"20px" }}>📂 Saved Templates</h4>
 
   {templates.length > 0 ? (
     <ul style={{ listStyle: "none", padding: "0" }}>
@@ -957,7 +959,22 @@ const DesignStudio = () => {
   </button>
 </div>
 
-         
+<div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+  <button
+    onClick={openCanvaPopup}
+    style={{
+      background: "#0082cc",
+      color: "white",
+      border: "none",
+      padding: "10px",
+      cursor: "pointer",
+      borderRadius: "6px",
+
+    }}
+  >
+   🔗 Open Canva App
+  </button>
+</div>
           
         </div>
       </div>
