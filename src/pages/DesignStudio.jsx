@@ -688,9 +688,9 @@ const DesignStudio = () => {
 
 
 
-  const openCanvaPopup = () => {
-    window.open("https://www.canva.com/design/DAGjkyuIaEs/u0hRRwtmCimhHnrdw5K4BQ/edit", "_blank", "width=1200,height=800");
-  };
+  // const openCanvaPopup = () => {
+  //   window.open("https://www.canva.com/design/DAGjkyuIaEs/u0hRRwtmCimhHnrdw5K4BQ/edit", "_blank", "width=1200,height=800");
+  // };
   
 
   return (
@@ -959,7 +959,7 @@ const DesignStudio = () => {
   </button>
 </div>
 
-<div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+{/* <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
   <button
     onClick={openCanvaPopup}
     style={{
@@ -974,7 +974,7 @@ const DesignStudio = () => {
   >
    🔗 Open Canva App
   </button>
-</div>
+</div> */}
           
         </div>
       </div>
