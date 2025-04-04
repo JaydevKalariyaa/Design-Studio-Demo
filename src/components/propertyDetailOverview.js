@@ -1,0 +1,160 @@
+export const source = `
+<div style="font-family: Arial, sans-serif; max-width: 1024px; margin: 0 auto; border: 1px solid #E0E0E0; border-radius: 8px; overflow: hidden; background-color: white;">
+    <!-- Navigation Tabs -->
+  
+    
+    <!-- Address Section -->
+    <div style="padding: 20px;">
+      <span style="font-size: 16px; font-weight: bold; color: #333333; ">Overview</span>
+      <div style="border: 1px solid #E0E0E0; border-radius: 8px; background: #0082CC26; padding: 15px; display: flex; align-items: center;margin-top:20px">
+        <div style="margin-right: 10px; color: #555555;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#555555">
+            <path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/>
+          </svg>
+        </div>
+        <div style="font-size: 16px; color: #333333; font-weight:bold; 
+  ">8730 Somers Road, Jacksonville, FL</div>
+      </div>
+    </div>
+    
+    <!-- Information Grid -->
+    <div style="padding: 0 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+      <!-- Row 1 -->
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Tenant</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">Forward Air Corp. (NASDAQ: FWRD)</div>
+      </div>
+      
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Website</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">https://www.forwardair.com/</div>
+      </div>
+      
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Industry</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">Transportation and Logistics</div>
+      </div>
+      
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Founded</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">1981</div>
+      </div>
+      
+      <!-- Row 2 -->
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Headquarters</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">Greenville, TN</div>
+      </div>
+      
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;"># of Employees</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">4,000+</div>
+      </div>
+      
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Share Price (as of November 2024)</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">+/- $35</div>
+      </div>
+      
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Forward Air 2023 Annual Revenue</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">$1.37 Billion</div>
+      </div>
+      
+      <!-- Row 3 (only one cell) -->
+      <div style="border: 1px solid #E0E0E0; border-radius: 5px; padding: 15px;">
+        <div style="font-size: 12px; color: #777777; margin-bottom: 5px;">Intermodal Business Segment: 2023 Revenue</div>
+        <div style="font-size: 13px; color: #333333; font-weight:bold;">20% or $274 Million</div>
+      </div>
+    </div>
+    
+    <!-- Price History Section -->
+    <div style="padding: 20px; margin-top: 15px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <div>
+          <span style="font-size: 16px; font-weight: bold; color: #333333;">Price History</span>
+          <span style="font-size: 14px; color: #777777; margin-left: 5px;">(Avg. +160% in last 10 years)</span>
+        </div>
+        <div style="position: relative;">
+          <select style="padding: 8px 30px 8px 10px; border: 1px solid #E0E0E0; border-radius: 5px; appearance: none; background-color: white; font-size: 14px; color: #333333;">
+            <option>Last 10 Years</option>
+          </select>
+          <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="#555555">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Graph Placeholder -->
+      <div style="height: 250px; width: 100%; background-color: #F8F9FA; border: 1px solid #E0E0E0; border-radius: 5px; position: relative; overflow: hidden;">
+        <!-- Y-axis labels -->
+        <div style="position: absolute; left: 10px; top: 10px; font-size: 12px; color: #777777;">$3M</div>
+        <div style="position: absolute; left: 10px; top: 70px; font-size: 12px; color: #777777;">$1.5M</div>
+        <div style="position: absolute; left: 10px; top: 130px; font-size: 12px; color: #777777;">$1M</div>
+        <div style="position: absolute; left: 10px; top: 190px; font-size: 12px; color: #777777;">$500K</div>
+        <div style="position: absolute; left: 10px; bottom: 10px; font-size: 12px; color: #777777;">$200K</div>
+        
+        <!-- X-axis grid lines -->
+        <div style="position: absolute; left: 50px; right: 20px; top: 20px; bottom: 30px;">
+          <!-- Horizontal grid lines -->
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 0; right: 0; top: 25%; height: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 0; right: 0; top: 75%; height: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background-color: #E0E0E0;"></div>
+          
+          <!-- Vertical grid lines with year labels -->
+          <div style="position: absolute; left: 0%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 10%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 20%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 30%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 40%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 60%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 70%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 80%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; left: 90%; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 1px; background-color: #E0E0E0;"></div>
+          
+          <!-- Year labels -->
+          <div style="position: absolute; left: 0%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2016</div>
+          <div style="position: absolute; left: 20%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2017</div>
+          <div style="position: absolute; left: 30%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2018</div>
+          <div style="position: absolute; left: 40%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2019</div>
+          <div style="position: absolute; left: 50%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2020</div>
+          <div style="position: absolute; left: 60%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2021</div>
+          <div style="position: absolute; left: 70%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2022</div>
+          <div style="position: absolute; left: 80%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2023</div>
+          <div style="position: absolute; left: 90%; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(-50%);">2024</div>
+          <div style="position: absolute; right: 0; bottom: -25px; font-size: 12px; color: #777777; transform: translateX(50%);">2025</div>
+          
+          <!-- Line chart (SVG would be better but using div+border for simplicity) -->
+          <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+            <polyline 
+              points="0,40% 10%,70% 20%,55% 30%,70% 40%,45% 50%,75% 60%,35% 70%,65% 80%,33% 90%,15% 100%,45%" 
+              style="fill: none; stroke: #0066CC; stroke-width: 2;"
+            />
+            <polygon 
+              points="0,40% 10%,70% 20%,55% 30%,70% 40%,45% 50%,75% 60%,35% 70%,65% 80%,33% 90%,15% 100%,45% 100%,100% 0,100%" 
+              style="fill: rgba(0, 102, 204, 0.1);"
+            />
+            <!-- Data points -->
+            <circle cx="0%" cy="40%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="10%" cy="70%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="20%" cy="55%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="30%" cy="70%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="40%" cy="45%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="50%" cy="75%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="60%" cy="35%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="70%" cy="65%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="80%" cy="33%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="90%" cy="15%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+            <circle cx="100%" cy="45%" r="4" fill="#FFF" stroke="#0066CC" stroke-width="2" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+`

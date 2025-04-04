@@ -22,8 +22,9 @@ import Redo from "../assets/sidebarImages/redo.svg"
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import DynamicTable from "../components/DymaicTable";
 
+
+import gjsTable from "grapesjs-blocks-table";
 const DesignStudio = () => {
   const editorRef = useRef(null);
  
@@ -56,6 +57,8 @@ const DesignStudio = () => {
       alert("Template saved successfully!");
     }
   };
+
+
   
   // Function to Load Template
   const loadTemplate = (templateId) => {
@@ -184,8 +187,9 @@ const DesignStudio = () => {
         fromElement: true,
         width: "auto",
         height: "calc(100vh - 100px)",
-      
-        plugins: ["gjs-preset-webpage"],
+        storageManager: false,
+        plugins: [gjsTable],
+        pluginsOpts: { 'grapesjs-blocks-table' : { 'containerId' : '#gjs' } },
        
         blockManager: {
           appendTo: "#blocks",
@@ -196,7 +200,7 @@ const DesignStudio = () => {
         //   autosave: true,
         //   stepsBeforeSave: 1, // Save on every change
         // },
-        storageManager: false,
+       
 
         pageManager: {
           pages: [
@@ -283,13 +287,19 @@ const DesignStudio = () => {
         content: `
                   <div style="border: 1px solid #0082cc; padding: 3px; margin: 5px auto; min-height: 600px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; width: 90%;"
                        data-gjs-droppable="true">
-                   
+               
                   </div>
                 `,
         attributes: { class: "gjs-block-section" }
       });
+    
+   
       
-     
+      blockManager.add("table-block", {
+        label: "Table",
+        content: { type: "table" },
+        category: "Basic",
+      });
       // 1/2
       blockManager.add("1-2", {
         label: `<img src=${OneByTwo} className="left-sidebar-image" width="100%"/>  <p style="margin-top:4px">1/2</p></div>`,

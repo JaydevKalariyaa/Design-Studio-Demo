@@ -17,16 +17,22 @@
     "@emotion/styled": "^11.14.0",
     "@grapesjs/react": "^2.0.0",
     "@grapesjs/studio-sdk": "^1.0.36",
+    "@grapesjs/studio-sdk-plugins": "^1.0.17",
     "@mui/icons-material": "^7.0.1",
     "@mui/material": "^7.0.1",
+    "@tailwindcss/vite": "^4.1.2",
     "grapejs": "^2.1.2",
     "grapesjs": "^0.22.6",
+    "grapesjs-blocks-table": "^1.1.2",
+    "grapesjs-echarts": "^0.0.20",
     "grapesjs-preset-webpage": "^1.0.3",
+    "grapesjs-table": "^1.0.8",
     "install": "^0.13.0",
     "npm": "^11.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.4.1"
+    "react-router-dom": "^7.4.1",
+    "tailwindcss": "^4.1.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
